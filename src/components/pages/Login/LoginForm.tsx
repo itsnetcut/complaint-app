@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../lib/supabase';
-import FormField from '../../components/FormField';
+import { supabase } from '../../../lib/supabase';
+import FormField from '../../../components/FormField';
 
 function LoginForm() {
   const navigate = useNavigate();

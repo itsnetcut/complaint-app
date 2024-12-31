@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
 import { MessageSquare } from 'lucide-react';
-import type { Complaint } from '../../types/complaint';
-import { getStatusColor } from '../../utils/statusColors';
+import type { Complaint } from '../../../types/complaint';
+import { getStatusColor } from '../../../utils/statusColors';
 import StatusSelect from './StatusSelect';
 
 interface ComplaintCardProps {

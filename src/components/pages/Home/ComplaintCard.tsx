@@ -1,7 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
-import type { Complaint } from '../../types/complaint';
-import { getStatusColor } from '../../utils/statusColors';
+import type { Complaint } from '../../../types/complaint';
+import { getStatusColor } from '../../../utils/statusColors';
 
 interface ComplaintCardProps {
   complaint: Complaint;

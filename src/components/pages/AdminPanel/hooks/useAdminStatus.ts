@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../../../lib/supabase';
+import { supabase } from '../../../../lib/supabase';
 
-export default function useAdminStatus() {
+export function useAdminStatus() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -32,3 +32,5 @@ export default function useAdminStatus() {
 
   return { isAdmin, loading };
 }
+
+export default useAdminStatus;

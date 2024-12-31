@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../../hooks/useAuth';
 import AdminHeader from './AdminHeader';
 import ComplaintsList from './ComplaintsList';
 import useAdminStatus from './hooks/useAdminStatus';

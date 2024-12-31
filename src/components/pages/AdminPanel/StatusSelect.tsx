@@ -1,6 +1,6 @@
 import React from 'react';
-import { supabase } from '../../lib/supabase';
-import type { Complaint, ComplaintStatus } from '../../types/complaint';
+import { supabase } from '../../../lib/supabase';
+import type { Complaint, ComplaintStatus } from '../../../types/complaint';
 
 interface StatusSelectProps {
   complaint: Complaint;

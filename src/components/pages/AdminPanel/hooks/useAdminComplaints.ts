@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { supabase } from '../../../lib/supabase';
-import type { Complaint } from '../../../types/complaint';
+import { supabase } from '../../../../lib/supabase';
+import type { Complaint } from '../../../../types/complaint';
 
 export function useComplaints() {
   const [complaints, setComplaints] = useState<Complaint[]>([]);
