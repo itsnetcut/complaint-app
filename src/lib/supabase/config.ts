@@ -1,0 +1,3 @@
+// Supabase configuration constants
+export const SUPABASE_URL = 'https://boxpsqcgmzdrijbmclkp.supabase.co';
+export const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJveHBzcWNnbXpkcmlqYm1jbGtwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDk0MDc2MDAsImV4cCI6MjAyNDk4MzYwMH0.RMB0T-RH7jhBDGD9z7zwvXYwNXLHJ4xnKJnON3nZhQY';

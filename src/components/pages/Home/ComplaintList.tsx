@@ -16,7 +16,15 @@ function ComplaintList() {
   if (error) {
     return (
       <div className="text-center py-8 text-red-600">
-        An error occurred while loading complaints.
+        An error occurred while loading complaints. Please try again later.
+      </div>
+    );
+  }
+
+  if (!complaints.length) {
+    return (
+      <div className="text-center py-8 text-gray-600">
+        No complaints found. Be the first to submit one!
       </div>
     );
   }
