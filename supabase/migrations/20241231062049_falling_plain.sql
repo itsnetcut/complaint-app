@@ -32,6 +32,10 @@ CREATE TABLE IF NOT EXISTS complaints (
   admin_notes text
 );
 
+-- Create indexes on complaints table
+CREATE INDEX idx_complaints_user_id ON complaints (user_id);
+CREATE INDEX idx_complaints_created_at ON complaints (created_at);
+
 -- Enable RLS
 ALTER TABLE complaints ENABLE ROW LEVEL SECURITY;
 

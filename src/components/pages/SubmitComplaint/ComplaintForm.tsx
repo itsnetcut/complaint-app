@@ -22,7 +22,7 @@ function ComplaintForm() {
         .from('complaints')
         .insert([{
           content,
-          user_id: isAnonymous ? null : user?.id,
+          user_id: isAnonymous ? undefined : user?.id,
           is_anonymous: isAnonymous
         }]);
 
