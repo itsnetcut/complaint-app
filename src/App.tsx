@@ -1,38 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import supabase from '../lib/supabase';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import AppRoutes from './routes';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 export default function App() {
-  const [todos, setTodos] = useState([]);
-
-  useEffect(() => {
-    const getTodos = async () => {
-      try {
-        const { data: todos, error } = await supabase.from('todos').select();
-
-        if (error) {
-          console.error('Error fetching todos:', error.message);
-          return;
-        }
-
-        if (todos && todos.length > 0) {
-          setTodos(todos);
-        }
-      } catch (error) {
-        console.error('Error fetching todos:', error.message);
-      }
-    };
-
-    getTodos();
-  }, []);
-
   return (
-    <div>
-      <h1>Todo List</h1>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.title}</li>
-        ))}
-      </ul>
-    </div>
+    <ErrorBoundary>
+      <Router>
+        <div className="min-h-screen bg-gray-50">
+          <Navbar />
+          <main className="container mx-auto px-4 py-8">
+            <AppRoutes />
+          </main>
+        </div>
+      </Router>
+    </ErrorBoundary>
   );
 }

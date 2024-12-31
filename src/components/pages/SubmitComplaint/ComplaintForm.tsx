@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../hooks/useAuth';
-import { supabase } from '../../../lib/supabase';
+import supabase from '../../../../utils/supabase';
 import FormField from '../../../components/FormField';
 
 function ComplaintForm() {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const [isAnonymous, setIsAnonymous] = useState(!user);
+  const [isAnonymous, setIsAnonymous] = useState(false);
+const [submitWithoutEmail, setSubmitWithoutEmail] = useState(false);
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -18,17 +17,27 @@ function ComplaintForm() {
     setError('');
 
     try {
-      const { error: submitError } = await supabase
-        .from('complaints')
-        .insert([{
-          content,
-          user_id: isAnonymous ? undefined : user?.id,
-          is_anonymous: isAnonymous
-        }]);
+const response = await fetch('https://boxpsqcgmzdrijbmclkp.supabase.co/rest/v1/complaints', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer YOUR_JWT_TOKEN',
+    'Prefer': 'return=representation'
+  },
+  body: JSON.stringify({
+    content,
+    is_anonymous: isAnonymous,
+    email: submitWithoutEmail ? null : ''
+  })
+});
 
-      if (submitError) throw submitError;
+const data = await response.json();
+console.log(data);
+
+      // Remove this line
       navigate('/');
     } catch (err) {
+      console.error('Error submitting complaint:', err);
       setError('Failed to submit complaint. Please try again.');
     } finally {
       setIsSubmitting(false);
@@ -50,19 +59,29 @@ function ComplaintForm() {
         />
       </FormField>
 
-      {user && (
-        <div className="mt-4">
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={isAnonymous}
-              onChange={(e) => setIsAnonymous(e.target.checked)}
-              className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-            />
-            <span className="text-gray-700">Submit anonymously</span>
-          </label>
-        </div>
-      )}
+      <div className="mt-4">
+        <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={submitWithoutEmail}
+            onChange={(e) => setSubmitWithoutEmail(e.target.checked)}
+            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+          <span className="text-gray-700">Submit without email</span>
+        </label>
+      </div>
+
+      <div className="mt-4">
+        <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={isAnonymous}
+            onChange={(e) => setIsAnonymous(e.target.checked)}
+            className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+          />
+          <span className="text-gray-700">Submit anonymously</span>
+        </label>
+      </div>
 
       <div className="mt-6">
         <button

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../lib/supabase';
+import supabase from '../../../../utils/supabase';
 import FormField from '../../../components/FormField';
 
 function LoginForm() {
@@ -24,7 +24,13 @@ function LoginForm() {
       if (signInError) throw signInError;
       navigate('/');
     } catch (err) {
-      setError('Invalid email or password');
+      if (err.message.includes('Invalid email')) {
+  setError('Invalid email. Please enter a valid email address.');
+} else if (err.message.includes('Invalid password')) {
+  setError('Invalid password. Please enter a valid password.');
+} else {
+  setError('Failed to sign in. Please try again.');
+}
     } finally {
       setIsSubmitting(false);
     }

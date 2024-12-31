@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '../../../lib/supabase';
+import supabase from '../../../../utils/supabase';
 import FormField from '../../../components/FormField';
 
 function RegisterForm() {
@@ -31,7 +31,21 @@ function RegisterForm() {
       if (signUpError) throw signUpError;
       navigate('/');
     } catch (err) {
-      setError('Failed to create account. Please try again.');
+      if (err.message.includes('User already exists')) {
+  setError('Email already exists. Please try again.');
+} else if (err.message.includes('Email not confirmed')) {
+  setError('Email not confirmed. Please check your email inbox.');
+} else {
+  if (err.message.includes('Email already exists')) {
+  setError('Email already exists. Please try again with a different email.');
+} else if (err.message.includes('Invalid email')) {
+  setError('Invalid email. Please enter a valid email address.');
+} else if (err.message.includes('Invalid password')) {
+  setError('Invalid password. Please enter a valid password.');
+} else {
+  setError('Failed to create account. Please try again.');
+}
+}
     } finally {
       setIsSubmitting(false);
     }
